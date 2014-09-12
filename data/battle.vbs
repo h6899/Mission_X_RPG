@@ -5,5 +5,5 @@ Sound.Controls.play
 do while Sound.currentmedia.duration = 2
 wscript.sleep 100
 loop
-wscript.sleep (int(Sound.currentmedia.duration)+1)*10000
+wscript.sleep (int(Sound.currentmedia.duration)+9)*1000
 loop
