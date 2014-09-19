@@ -42,6 +42,7 @@ goto sound_set
 
 :false_config
 bg font 8
+set losetext=lose_3
 set color=A
 color %color%
 
@@ -148,7 +149,7 @@ echo  ФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФ
 echo                                  Mission X RPG %hp% %dmg% %money% %kill%
 echo  ФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФ
 echo.
-cmdMenuSel f8%color%0 "Continue" "New Game" "Instructions" "Settings" "Exit" "debug_mode" "fast_mode" "delete_save"
+cmdMenuSel f8%color%0 "Continue" "New Game" "Instructions" "Settings" "Exit" "debug_mode" "fast_mode" "delete_save" "lose_1" "lose_2" "lose_3"
 if %ERRORLEVEL% == 1 goto load
 if %ERRORLEVEL% == 2 goto new
 if %ERRORLEVEL% == 3 goto help
@@ -157,6 +158,9 @@ if %ERRORLEVEL% == 5 exit
 if %ERRORLEVEL% == 6 goto debug
 if %ERRORLEVEL% == 7 goto new3
 if %ERRORLEVEL% == 8 del "%systemdrive%\Users\%username%\AppData\Roaming\Mission_X_RPG\data.dll"
+if %ERRORLEVEL% == 9 goto lose_1
+if %ERRORLEVEL% == 10 goto lose_2
+if %ERRORLEVEL% == 11 goto lose_3
 goto menu
 
 :new
@@ -443,7 +447,7 @@ if %hp% lss 40 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 30 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 20 set hpbar=0C \00 0C \CD 0C \CD 0C \
 if %hp% lss 10 set hpbar=0C \00 0C \CD 0C \
-if %hp% lss 1 goto lose
+if %hp% lss 1 goto %losetext%
 if %mhp% lss 1 goto win1
 set /a crit1=%random% %% 15 + 1
 start attack.vbs
@@ -527,7 +531,7 @@ if %hp% lss 40 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 30 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 20 set hpbar=0C \00 0C \CD 0C \CD 0C \
 if %hp% lss 10 set hpbar=0C \00 0C \CD 0C \
-if %hp% lss 1 goto lose
+if %hp% lss 1 goto %losetext%
 if %mhp% lss 1 goto win2
 set /a crit2=%random% %% 15 + 1
 start attack.vbs
@@ -610,7 +614,7 @@ if %hp% lss 40 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 30 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 20 set hpbar=0C \00 0C \CD 0C \CD 0C \
 if %hp% lss 10 set hpbar=0C \00 0C \CD 0C \
-if %hp% lss 1 goto lose
+if %hp% lss 1 goto %losetext%
 if %mhp% lss 1 goto win3
 set /a crit3=%random% %% 15 + 1
 start attack.vbs
@@ -693,7 +697,7 @@ if %hp% lss 40 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 30 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 20 set hpbar=0C \00 0C \CD 0C \CD 0C \
 if %hp% lss 10 set hpbar=0C \00 0C \CD 0C \
-if %hp% lss 1 goto lose
+if %hp% lss 1 goto %losetext%
 if %mhp% lss 1 goto cut_alien
 set /a crit4=%random% %% 15 + 1
 start attack.vbs
@@ -771,7 +775,7 @@ if %hp% lss 40 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 30 set hpbar=0E \00 0E \CD 0E \CD 0E \CD 0E \
 if %hp% lss 20 set hpbar=0C \00 0C \CD 0C \CD 0C \
 if %hp% lss 10 set hpbar=0C \00 0C \CD 0C \
-if %hp% lss 1 goto lose
+if %hp% lss 1 goto %losetext%
 if %mhp% lss 1 goto win4
 set /a crita=%random% %% 15 + 1
 start attack.vbs
@@ -876,10 +880,25 @@ goto config2
 bg font %font%
 call save_config.cmd
 cmdMenuSel f8%color%0 "480x320" "640x480" "960x640" "Back"
-if %ERRORLEVEL% == 1 set font=1
-if %ERRORLEVEL% == 2 set font=6
-if %ERRORLEVEL% == 3 set font=8
+if %ERRORLEVEL% == 1 goto font_1
+if %ERRORLEVEL% == 2 goto font_2
+if %ERRORLEVEL% == 3 goto font_3
 if %ERRORLEVEL% == 4 goto config1
+goto config3
+
+:font_1
+set font=1
+set losetext=lose_1
+goto config3
+
+:font_2
+set font=6
+set losetext=lose_2
+goto config3
+
+:font_3
+set font=8
+set losetext=lose_3
 goto config3
 
 :help
@@ -901,7 +920,7 @@ echo Settings=%ar_config%
 pause >nul
 goto home
 
-:lose
+:lose_1
 taskkill /im wscript.exe >nul /f
 cls
 bg cursor 0
@@ -918,21 +937,136 @@ echo.
 echo.
 echo.
 echo.
-echo.
-echo.
-echo               ллл                            ллл                  
-echo              л   л                          л   л                 
-echo             л     л  ллл  л лллл   ллл     л     л л   л  ллл  л л
-echo             л       л   л лл л  л л   л    л     л л   л л   л лл 
-echo             л   ллл  лллл л  л  л ллллл    л     л  л л  ллллл л  
-echo             л     л л   л л  л  л л        л     л  л л  л     л  
-echo              л   л  л  лл л  л  л л   л     л   л    л   л   л л  
-echo               ллл    лл л л  л  л  ллл       ллл     л    ллл  л  
+echo    лллл                                           лллл                         
+echo   л    л                                         л    л                        
+echo  л      л                                       л      л                       
+echo л             лллл   л ллл  ллл     ллл        л        л л     л   ллл    л лл
+echo л            л    л  лл   лл   л   л   л       л        л л     л  л   л   лл  
+echo л           л     л  л    л    л  л     л      л        л  л   л  л     л  л   
+echo л    ллллл      ллл  л    л    л  л     л      л        л  л   л  л     л  л   
+echo л        л   ллл  л  л    л    л  ллллллл      л        л   л л   ллллллл  л   
+echo л        л  л     л  л    л    л  л            л        л   л л   л        л   
+echo  л      л   л     л  л    л    л  л     л       л      л    л л   л     л  л   
+echo   л    л    л    лл  л    л    л   л   л         л    л      л     л   л   л   
+echo    лллл      лллл л  л    л    л    ллл           лллл       л      ллл    л   
 start game_over.vbs
 Timeout /t 2 /nobreak >nul
 pause >nul
 taskkill /im wscript.exe >nul /f
 start menu.vbs
+goto game_over2
+
+:lose_2
+taskkill /im wscript.exe >nul /f
+cls
+bg font 1
+mode 107,60
+bg cursor 0
+color 4F
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo         лллллл                                                   ллллл                               
+echo       ллллллллл                                                ллллллллл                             
+echo      ллл     ллл                                              ллл     ллл                            
+echo      лл       ллл                                             лл       лл                            
+echo     ллл        л     ллллл   лл лллл  лллл     ллллл         лл         лл лл     лл   ллллл    лл лл
+echo     лл             лллллллл  ллллллл лллллл   ллллллл        лл         лл лл     лл  ллллллл   ллллл
+echo     лл             лл    лл  ллл   ллл   лл  ллл   лл        лл         лл  лл   лл  ллл   лл   ллл  
+echo     лл     лллллл      лллл  лл    лл    лл  лл     лл       лл         лл  лл   лл  лл     лл  лл   
+echo     лл     лллллл   ллллллл  лл    лл    лл  ллллллллл       лл         лл  лл   лл  ллллллллл  лл   
+echo     лл         лл  лллл  лл  лл    лл    лл  ллллллллл       лл         лл   лл лл   ллллллллл  лл   
+echo      лл        лл  лл    лл  лл    лл    лл  лл               лл       лл    лл лл   лл         лл   
+echo      лллл     ллл  лл   ллл  лл    лл    лл  ллл    лл        ллл     ллл     ллл    ллл    лл  лл   
+echo       лллллллллл   лллллллл  лл    лл    лл   ллллллл          ллллллллл      ллл     ллллллл   лл   
+echo         лллллл      лллл  лл лл    лл    лл    ллллл             ллллл         л       ллллл    лл   
+start game_over.vbs
+Timeout /t 2 /nobreak >nul
+pause >nul
+taskkill /im wscript.exe >nul /f
+start menu.vbs
+bg font 6
+mode 80,40
+goto game_over2
+
+:lose_3
+taskkill /im wscript.exe >nul /f
+cls
+bg font 1
+mode 160,80
+bg cursor 0
+color 4F
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo              ллллллл                                                                                 ллллллл                                               
+echo            лллллллллллл                                                                            ллллллллллл                                             
+echo          ллллллллллллллл                                                                         ллллллллллллллл                                           
+echo         ллллл       ллллл                                                                       лллллл      ллллл                                          
+echo         лллл          ллл                                                                       лллл         лллл                                          
+echo        лллл           ллл                                                                      лллл           лллл                                         
+echo        ллл             лл        лллллл       ллл  ллллл    ллллл         лллллл               ллл             ллл  ллл       ллл     лллллл       ллл лллл
+echo       ллл                      лллллллллл     ллл ллллллл лллллллл       ллллллллл            ллл               ллл  лл       лл     ллллллллл     лллллллл
+echo       ллл                     ллл     лллл    ллллл   лллллл   лллл     ллл    лллл           ллл               ллл  ллл     ллл    ллл    лллл    лллл    
+echo       ллл                    ллл       ллл    лллл     лллл     ллл    ллл      ллл           ллл               ллл  ллл     ллл   ллл      ллл    лллл    
+echo       ллл        ллллллллл   ллл       ллл    ллл      ллл      ллл   ллл        ллл          ллл               ллл   лл     лл   ллл        ллл   ллл     
+echo       ллл        ллллллллл             ллл    ллл      ллл      ллл   ллл        ллл          ллл               ллл   ллл   ллл   ллл        ллл   ллл     
+echo       ллл        ллллллллл           ллллл    ллл      ллл      ллл   лллллллллллллл          ллл               ллл   ллл   ллл   лллллллллллллл   ллл     
+echo       ллл              ллл     ллллллллллл    ллл      ллл      ллл   лллллллллллллл          ллл               ллл    лл   лл    лллллллллллллл   ллл     
+echo        ллл             ллл    ллллллл  ллл    ллл      ллл      ллл   ллл                      ллл             ллл     лл   лл    ллл              ллл     
+echo        лллл            ллл   лллл      ллл    ллл      ллл      ллл   ллл                      лллл           лллл     ллл ллл    ллл              ллл     
+echo         лллл           ллл   ллл       ллл    ллл      ллл      ллл   лллл       ллл            лллл         лллл       лл лл     лллл       ллл   ллл     
+echo         лллллл      лллллл   ллл      лллл    ллл      ллл      ллл    ллл      ллл             ллллл       ллллл       лл лл      ллл      ллл    ллл     
+echo          лллллллллллллллл    лллл    ллллл    ллл      ллл      ллл    лллл    лллл              ллллллллллллллл        ллллл      лллл    лллл    ллл     
+echo            лллллллллллл       лллллллл ллл    ллл      ллл      ллл     лллллллллл                 ллллллллллл           ллл        лллллллллл     ллл     
+echo              лллллллл          лллллл   ллл   ллл      ллл      ллл       лллллл                     ллллллл             ллл          лллллл       ллл     
+start game_over.vbs
+Timeout /t 2 /nobreak >nul
+pause >nul
+taskkill /im wscript.exe >nul /f
+start menu.vbs
+bg font 8
+mode 80,40
 goto game_over2
 
 :debug
