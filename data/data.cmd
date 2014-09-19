@@ -149,7 +149,7 @@ echo  컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 echo                                  Mission X RPG %hp% %dmg% %money% %kill%
 echo  컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 echo.
-cmdMenuSel f8%color%0 "Continue" "New Game" "Instructions" "Settings" "Exit" "debug_mode" "fast_mode" "delete_save" "lose_1" "lose_2" "lose_3"
+cmdMenuSel f8%color%0 "Continue" "New Game" "Instructions" "Settings" "Exit" "debug_mode" "fast_mode" "delete_save"
 if %ERRORLEVEL% == 1 goto load
 if %ERRORLEVEL% == 2 goto new
 if %ERRORLEVEL% == 3 goto help
@@ -158,9 +158,6 @@ if %ERRORLEVEL% == 5 exit
 if %ERRORLEVEL% == 6 goto debug
 if %ERRORLEVEL% == 7 goto new3
 if %ERRORLEVEL% == 8 del "%systemdrive%\Users\%username%\AppData\Roaming\Mission_X_RPG\data.dll"
-if %ERRORLEVEL% == 9 goto lose_1
-if %ERRORLEVEL% == 10 goto lose_2
-if %ERRORLEVEL% == 11 goto lose_3
 goto menu
 
 :new
