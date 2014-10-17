@@ -173,35 +173,6 @@ goto new
 color %color%
 del "%systemdrive%\Users\%username%\AppData\Roaming\Mission_X_RPG\data.dll"
 
-:story
-taskkill /im wscript.exe >nul /f
-start story.vbs
-
-:story_frame1
-cls
-echo It was an normal day
-Timeout /t 6 /nobreak >nul
-
-:story_frame2
-cls
-echo But suddenly, something bad happens
-Timeout /t 6 /nobreak >nul
-
-:story_frame3
-cls
-echo News "The robots are taking over the world"
-Timeout /t 6 /nobreak >nul
-
-:story_frame4
-cls
-echo You "I must save the world!"
-Timeout /t 6 /nobreak >nul
-
-:story_end
-taskkill /im wscript.exe >nul /f
-start menu.vbs
-goto new3
-
 :new3
 cls
 set hp=100
@@ -716,7 +687,6 @@ set /a points+=1000
 set /a money+=1000
 taskkill /im wscript.exe >nul /f
 start story.vbs
-echo Story
 Timeout /t 6 /nobreak >nul
 pause >nul
 taskkill /im wscript.exe >nul /f
