@@ -36,13 +36,11 @@ title Mission X RPG
 bg maximize
 if not exist %systemdrive%\Users\%username%\AppData\Roaming\Mission_X_RPG\config.dll goto false_config
 for /f %%a in (%systemdrive%\Users\%username%\AppData\Roaming\Mission_X_RPG\config.dll) do set %%a
-bg font %font%
+bg font 8
 color %color%
 goto sound_set
 
 :false_config
-bg font 8
-set losetext=lose_3
 set color=A
 color %color%
 
@@ -791,11 +789,10 @@ cls
 set ar_config=X
 call save.cmd
 call save_config.cmd
-cmdMenuSel f8%color%0 "Font Color" "Window Size" "Reset Settings" "Back"
+cmdMenuSel f8%color%0 "Font Color" "Reset Settings" "Back"
 if %ERRORLEVEL% == 1 goto config2
-if %ERRORLEVEL% == 2 goto config3
-if %ERRORLEVEL% == 3 goto config_reset
-if %ERRORLEVEL% == 4 goto menu
+if %ERRORLEVEL% == 2 goto config_reset
+if %ERRORLEVEL% == 3 goto menu
 goto config1
 
 :kill_sound
@@ -812,7 +809,6 @@ if %ERRORLEVEL% == 2 goto config1
 goto config_reset
 
 :config_reset
-bg font 8
 color A
 set color=A
 del "%systemdrive%\Users\%username%\AppData\Roaming\Mission_X_RPG\config.dll"
@@ -843,31 +839,6 @@ if %ERRORLEVEL% == 15 set color=F
 if %ERRORLEVEL% == 16 goto config1
 goto config2
 
-:config3
-bg font %font%
-call save_config.cmd
-cmdMenuSel f8%color%0 "480x320" "640x480" "960x640" "Back"
-if %ERRORLEVEL% == 1 goto font_1
-if %ERRORLEVEL% == 2 goto font_2
-if %ERRORLEVEL% == 3 goto font_3
-if %ERRORLEVEL% == 4 goto config1
-goto config3
-
-:font_1
-set font=1
-set losetext=lose_1
-goto config3
-
-:font_2
-set font=6
-set losetext=lose_2
-goto config3
-
-:font_3
-set font=8
-set losetext=lose_3
-goto config3
-
 :help
 taskkill /im wscript.exe >nul /f
 cls
@@ -887,188 +858,14 @@ echo Settings=%ar_config%
 pause >nul
 goto home
 
-:lose_1
-taskkill /im wscript.exe >nul /f
-cls
-bg font 0
-mode 120,53
-bg cursor 0
-color 4F
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo           ллллллл                                                       лллллл                                   
-echo          ллллллллл                                                     лллллллл                                  
-echo         ллл     ллл                                                   ллл    ллл                                 
-echo        лл        ллл                                                 лл        лл                                
-echo        лл         л     лллллл    лл лллл  лллл      лллл           ллл        ллл лл       лл    лллл     лл ллл
-echo       лл              ллллллллл   ллллллл лллллл   лллллллл         лл          лл лл       лл  лллллллл   лллллл
-echo       лл              лл     лл   ллл   ллл   лл   лл    лл         лл          лл  лл     лл   лл    лл   ллл   
-echo       лл     ллллллл         лл   лл    лл    лл  лл      лл        лл          лл  лл     лл  лл      лл  лл    
-echo       лл     ллллллл      ллллл   лл    лл    лл  лллллллллл        лл          лл   лл   лл   лллллллллл  лл    
-echo       лл          лл   лллллллл   лл    лл    лл  лллллллллл        лл          лл   лл   лл   лллллллллл  лл    
-echo        лл         лл  лллл   лл   лл    лл    лл  лл                ллл        ллл    лл лл    лл          лл    
-echo        лл         лл  лл     лл   лл    лл    лл  лл                 лл        лл     лл лл    лл          лл    
-echo         ллл     лллл  лл    ллл   лл    лл    лл   лл    ллл          ллл    ллл       ллл      лл    ллл  лл    
-echo          лллллллллл   ллллллллл   лл    лл    лл   лллллллл            лллллллл        ллл      лллллллл   лл    
-echo            лллллл      ллллл  лл  лл    лл    лл     ллллл              лллллл          л         ллллл    лл    
-start game_over.vbs
-Timeout /t 2 /nobreak >nul
-pause >nul
-taskkill /im wscript.exe >nul /f
-start menu.vbs
-bg font 1
-mode 80,40
-goto game_over2
-
-:lose_2
-taskkill /im wscript.exe >nul /f
-cls
-bg font 0
-mode 160,80
-bg cursor 0
-color 4F
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo             ллллллл                                                                                 ллллллл                                               
-echo           лллллллллллл                                                                            ллллллллллл                                             
-echo         ллллллллллллллл                                                                         ллллллллллллллл                                           
-echo        ллллл       ллллл                                                                       лллллл      ллллл                                          
-echo        лллл          ллл                                                                       лллл         лллл                                          
-echo       лллл           ллл                                                                      лллл           лллл                                         
-echo       ллл             лл        лллллл       ллл  ллллл    ллллл         лллллл               ллл             ллл  ллл       ллл     лллллл       ллл лллл
-echo      ллл                      лллллллллл     ллл ллллллл лллллллл       ллллллллл            ллл               ллл  лл       лл     ллллллллл     лллллллл
-echo      ллл                     ллл     лллл    ллллл   лллллл   лллл     ллл    лллл           ллл               ллл  ллл     ллл    ллл    лллл    лллл    
-echo      ллл                    ллл       ллл    лллл     лллл     ллл    ллл      ллл           ллл               ллл  ллл     ллл   ллл      ллл    лллл    
-echo      ллл        ллллллллл   ллл       ллл    ллл      ллл      ллл   ллл        ллл          ллл               ллл   лл     лл   ллл        ллл   ллл     
-echo      ллл        ллллллллл             ллл    ллл      ллл      ллл   ллл        ллл          ллл               ллл   ллл   ллл   ллл        ллл   ллл     
-echo      ллл        ллллллллл           ллллл    ллл      ллл      ллл   лллллллллллллл          ллл               ллл   ллл   ллл   лллллллллллллл   ллл     
-echo      ллл              ллл     ллллллллллл    ллл      ллл      ллл   лллллллллллллл          ллл               ллл    лл   лл    лллллллллллллл   ллл     
-echo       ллл             ллл    ллллллл  ллл    ллл      ллл      ллл   ллл                      ллл             ллл     лл   лл    ллл              ллл     
-echo       лллл            ллл   лллл      ллл    ллл      ллл      ллл   ллл                      лллл           лллл     ллл ллл    ллл              ллл     
-echo        лллл           ллл   ллл       ллл    ллл      ллл      ллл   лллл       ллл            лллл         лллл       лл лл     лллл       ллл   ллл     
-echo        лллллл      лллллл   ллл      лллл    ллл      ллл      ллл    ллл      ллл             ллллл       ллллл       лл лл      ллл      ллл    ллл     
-echo         лллллллллллллллл    лллл    ллллл    ллл      ллл      ллл    лллл    лллл              ллллллллллллллл        ллллл      лллл    лллл    ллл     
-echo           лллллллллллл       лллллллл ллл    ллл      ллл      ллл     лллллллллл                 ллллллллллл           ллл        лллллллллл     ллл     
-echo             лллллллл          лллллл   ллл   ллл      ллл      ллл       лллллл                     ллллллл             ллл          лллллл       ллл     
-start game_over.vbs
-Timeout /t 2 /nobreak >nul
-pause >nul
-taskkill /im wscript.exe >nul /f
-start menu.vbs
-bg font 6
-mode 80,40
-goto game_over2
-
-:lose_3
+:lose
 taskkill /im wscript.exe >nul /f
 cls
 bg font 0
 mode 240,107
 bg cursor 0
 color 4F
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo                ллллллллл                                                                                                                              ллллллллл                                                                             
-echo             лллллллллллллл                                                                                                                         ллллллллллллллл                                                                          
-echo           лллллллллллллллллл                                                                                                                      ллллллллллллллллл                                                                         
-echo         ллллллллллллллллллллл                                                                                                                   ллллллллллллллллллллл                                                                       
-echo        лллллллл        ллллллл                                                                                                                 лллллллл       лллллллл                                                                      
-echo       лллллл             лллллл                                                                                                               лллллл             лллллл                                                                     
-echo       ллллл                лллл                                                                                                               ллллл               ллллл                                                                     
-echo      ллллл                 ллллл                                                                                                             ллллл                 ллллл                                                                    
-echo      лллл                   лллл             лллллллл                   лллллл        лллллл                ллллллл                          лллл                   лллл                                    ллллллл                  ллллл  
-echo     ллллл                   ллллл          ллллллллллллл        лллл  ллллллллл     лллллллллл            ллллллллллл                       лллл                     лллл    лллл             лллл        ллллллллллл          ллл  лллллллл
-echo     лллл                                 лллллллллллллллл       лллл ллллллллллл   лллллллллллл          ллллллллллллл                      лллл                     лллл     лллл           лллл        ллллллллллллл         ллл ллллллллл
-echo     лллл                                ллллллллллллллллл       лллл лллллллллллл ллллллллллллл         ллллллллллллллл                     лллл                     лллл     лллл           лллл       ллллллллллллллл        лллллллллллл 
-echo    лллл                                 лллллл      лллллл      ллллллл     ллллллллл     лллллл       лллллл      ллллл                   лллл                       лллл    лллл           лллл      лллллл      ллллл       ллллллл   лл 
-echo    лллл                                ллллл         ллллл      лллллл       ллллллл       ллллл      ллллл         ллллл                  лллл                       лллл     лллл         лллл      ллллл         ллллл      ллллл        
-echo    лллл                                ллллл          лллл      ллллл         ллллл         лллл      лллл           лллл                  лллл                       лллл     лллл         лллл      лллл           лллл      ллллл        
-echo    лллл                                  лл           лллл      ллллл         лллл          лллл      ллл             ллл                  лллл                       лллл     лллл         лллл      ллл             ллл      лллл         
-echo    лллл             ллллллллллллл                     лллл      лллл          лллл          лллл     лллл             лллл                 лллл                       лллл      лллл       лллл      лллл             лллл     лллл         
-echo    лллл             ллллллллллллл                   лллллл      лллл          лллл          лллл     ллллллллллллллллллллл                 лллл                       лллл      лллл       лллл      ллллллллллллллллллллл     лллл         
-echo    лллл             ллллллллллллл             лллллллллллл      лллл          лллл          лллл     ллллллллллллллллллллл                 лллл                       лллл       лллл      ллл       ллллллллллллллллллллл     лллл         
-echo    лллл             ллллллллллллл         лллллллллллллллл      лллл          лллл          лллл     ллллллллллллллллллллл                 лллл                       лллл       лллл     лллл       ллллллллллллллллллллл     лллл         
-echo     лллл                     лллл       лллллллллллллллллл      лллл          лллл          лллл     ллллллллллллллллллллл                 ллллл                     ллллл       лллл     лллл       ллллллллллллллллллллл     лллл         
-echo     лллл                     лллл      ллллллллллллл  лллл      лллл          лллл          лллл     лллл                                   лллл                     лллл         лллл   лллл        лллл                      лллл         
-echo     лллл                     лллл      лллллл         лллл      лллл          лллл          лллл     лллл                                   лллл                     лллл         лллл   лллл        лллл                      лллл         
-echo      лллл                    лллл     ллллл           лллл      лллл          лллл          лллл     лллл                                    лллл                   лллл          лллл   лллл        лллл                      лллл         
-echo      ллллл                   лллл     лллл            лллл      лллл          лллл          лллл      лллл            лл                     ллллл                 ллллл           лллл лллл          лллл            лл       лллл         
-echo       ллллл                 ллллл     лллл           ллллл      лллл          лллл          лллл      ллллл          ллллл                    ллллл               ллллл            лллл лллл          ллллл          ллллл     лллл         
-echo       ллллллл             ллллллл     лллл          лллллл      лллл          лллл          лллл      ллллл         ллллл                     лллллл             лллллл             ллл ллл           ллллл         ллллл      лллл         
-echo        лллллллл        лллллллллл     лллллл      лллллллл      лллл          лллл          лллл       лллллл      лллллл                      лллллллл       лллллллл              ллллллл            лллллл      лллллл      лллл         
-echo         ллллллллллллллллллллллл        ллллллллллллллллллл      лллл          лллл          лллл        лллллллллллллллл                        ллллллллллллллллллллл               ллллллл             лллллллллллллллл       лллл         
-echo           ллллллллллллллллллл          лллллллллллллл лллл      лллл          лллл          лллл         лллллллллллллл                           ллллллллллллллллл                  ллллл               лллллллллллллл        лллл         
-echo             ллллллллллллллл             лллллллллллл  ллллл     лллл          лллл          лллл          лллллллллллл                             ллллллллллллллл                   ллллл                лллллллллллл         лллл         
-echo                ллллллллл                  лллллллл     лллл     лллл          лллл          лллл            лллллллл                                  ллллллллл                      ллллл                  лллллллл           лллл         
+insertbmp /p:"lose.bmp" /x:0 /y:0
 start game_over.vbs
 Timeout /t 2 /nobreak >nul
 pause >nul
